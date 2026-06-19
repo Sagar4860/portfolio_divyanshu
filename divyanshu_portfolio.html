@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divyanshu's Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0f1f3d;
+  --navy-mid: #1a3260;
+  --sky: #38b6d8;
+  --sky-light: #7fd4ea;
+  --sky-pale: #e0f4fa;
+  --amber: #f59e0b;
+  --emerald: #10b981;
+  --rose: #f43f5e;
+  --bg: #f4f6fa;
+  --white: #ffffff;
+  --gray: #64748b;
+  --gray-light: #e2e8f0;
+  --text: #0f172a;
+  --card-shadow: 0 4px 24px rgba(15,31,61,0.10);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; padding: 0 52px; height: 64px;
+  background: rgba(15,31,61,0.97); backdrop-filter: blur(12px);
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  text-decoration: none; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.65); letter-spacing: 0.08em; text-transform: uppercase;
+  transition: color 0.2s; padding-bottom: 3px; border-bottom: 2px solid transparent;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--sky); border-bottom-color: var(--sky); }
+.nav-title {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  font-family: 'DM Serif Display', serif; font-size: 17px; color: white;
+}
+.nav-social { margin-left: auto; display: flex; gap: 18px; align-items: center; }
+.nav-social a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+.nav-social a:hover { color: var(--sky); }
+
+/* HERO — light background, photo left, text right */
+#home {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 80px 80px 60px; position: relative; overflow: hidden;
+  background: var(--bg);
+}
+
+/* subtle grid pattern on the right half */
+#home::before {
+  content: '';
+  position: absolute; top: 0; right: 0; bottom: 0; width: 55%;
+  background-image:
+    linear-gradient(rgba(56,182,216,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,182,216,0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* accent blob */
+#home::after {
+  content: '';
+  position: absolute; bottom: -80px; right: 10%;
+  width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(56,182,216,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-left { flex: 0 0 400px; position: relative; z-index: 1; }
+
+.hero-photo-frame {
+  width: 360px; height: 440px; border-radius: 24px; overflow: hidden;
+  border: 2px solid rgba(56,182,216,0.25);
+  box-shadow: 0 20px 60px rgba(15,31,61,0.12), 0 0 0 1px rgba(56,182,216,0.08);
+  background: linear-gradient(135deg, #dde4ef, #c8d5e3);
+  display: flex; align-items: center; justify-content: center; font-size: 100px;
+  position: relative;
+}
+.hero-photo-frame::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(to bottom, transparent, rgba(15,31,61,0.12));
+}
+.hero-badge {
+  position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: white; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; padding: 12px 18px; border-radius: 20px; white-space: nowrap; z-index: 2;
+  box-shadow: 0 4px 14px rgba(15,31,61,0.25);
+}
+
+.hero-right { flex: 1; padding-left: 450px; position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--sky); letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 28px; height: 2px; background: var(--sky); }
+
+.hero-name {
+  font-family: 'DM Serif Display', serif; font-size: 58px; font-weight: 400;
+  line-height: 1.08; margin-bottom: 10px; color: var(--text);
+}
+.hero-name em { font-style: italic; color: var(--sky); }
+
+.hero-subtitle {
+  font-size: 15px; color: var(--gray); font-weight: 400;
+  margin-bottom: 28px; letter-spacing: 0.01em;
+}
+
+.hero-desc {
+  font-size: 15px; line-height: 1.8; color: var(--gray);
+  max-width: 440px; margin-bottom: 40px;
+}
+
+.hero-stats { display: flex; gap: 32px; margin-bottom: 40px; }
+.hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--text); line-height: 1; }
+.hero-stat-label { font-size: 12px; color: var(--gray); margin-top: 4px; letter-spacing: 0.05em; }
+.hero-divider { width: 1px; background: var(--gray-light); }
+
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-navy-solid {
+  background: var(--navy); color: white; padding: 13px 28px;
+  text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; border-radius: 6px; transition: all 0.2s; display: inline-block;
+}
+.btn-navy-solid:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,31,61,0.25); }
+.btn-ghost-dark {
+  background: transparent; color: var(--navy); padding: 13px 28px;
+  text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; border-radius: 6px; border: 1.5px solid rgba(15,31,61,0.25);
+  transition: all 0.2s; display: inline-block;
+}
+.btn-ghost-dark:hover { border-color: var(--sky); color: var(--sky); }
+
+/* SECTION SHARED */
+.sec-light { background: var(--bg); padding: 96px 80px; }
+.sec-dark { background: #0f1f3d; padding: 96px 80px; }
+.sec-mid { background: #e8edf5; padding: 96px 80px; }
+.sec-title { font-family: 'DM Serif Display', serif; font-size: 42px; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+.sec-dark .sec-title { color: white; }
+.sec-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--sky); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+.sec-sub { font-size: 15px; color: var(--gray); margin-bottom: 56px; }
+.sec-dark .sec-sub { color: rgba(255,255,255,0.45); }
+
+/* STRENGTHS / WEAKNESSES */
+.sw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 880px; margin: 0 auto; }
+.sw-card { background: white; border-radius: 16px; padding: 32px 36px; box-shadow: var(--card-shadow); }
+.sw-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.sw-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.sw-icon.green { background: #d1fae5; } .sw-icon.red { background: #ffe4e6; }
+.sw-card h3 { font-size: 17px; font-weight: 700; }
+.sw-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.sw-card ul li {
+  font-size: 14px; color: var(--gray); line-height: 1.6;
+  display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px;
+  background: #f8fafc; border-radius: 8px;
+}
+.sw-card ul li::before { content: '→'; color: var(--sky); font-weight: 700; flex-shrink: 0; }
+.sw-card.weak ul li::before { content: '↻'; color: #f59e0b; }
+
+/* EDUCATION */
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; max-width: 960px; margin: 0 auto; }
+.edu-card {
+  background: white; border-radius: 16px; padding: 28px 30px; box-shadow: var(--card-shadow);
+  border-top: 4px solid var(--sky); display: flex; gap: 18px; align-items: flex-start;
+}
+.edu-card.two { border-top-color: var(--navy); }
+.edu-card.three { border-top-color: var(--sky-light); }
+.edu-icon {
+  width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+  background: var(--sky-pale); display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.edu-card.two .edu-icon { background: #e0e7ff; }
+.edu-card.three .edu-icon { background: #f0fdf4; }
+.edu-deg { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.edu-year { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--sky); font-weight: 600; margin-bottom: 4px; }
+.edu-inst { font-size: 13px; color: var(--gray); }
+
+/* LOGO ROW */
+.logo-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 64px; }
+.logo-chip {
+  width: 68px; height: 68px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12); transition: transform 0.2s;
+}
+.logo-chip:hover { transform: translateY(-4px); }
+
+/* TIMELINE */
+.timeline-wrap { max-width: 860px; margin: 0 auto; position: relative; }
+.tl-line {
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--sky), rgba(56,182,216,0.2)); transform: translateX(-50%);
+}
+.tl-item { display: flex; align-items: flex-start; margin-bottom: 64px; position: relative; }
+.tl-item.left { flex-direction: row-reverse; }
+.tl-card {
+  background: white; border-radius: 16px; overflow: hidden; width: calc(50% - 52px);
+  box-shadow: var(--card-shadow); transition: transform 0.25s, box-shadow 0.25s;
+}
+.tl-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(15,31,61,0.15); }
+.tl-card-img { height: 160px; width: 100%; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+.tl-card-body { padding: 18px 20px; }
+.tl-card-body h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.tl-card-body p { font-size: 13px; color: var(--gray); line-height: 1.55; }
+.tl-read { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--sky); text-decoration: none; }
+.tl-read:hover { text-decoration: underline; }
+.tl-dot {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  width: 42px; height: 42px; border-radius: 50%; background: var(--navy);
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  color: white; z-index: 2; border: 3px solid #e8edf5;
+  box-shadow: 0 0 0 4px rgba(56,182,216,0.2);
+}
+.tl-meta { width: calc(50% - 52px); padding: 10px 24px; }
+.tl-item.right .tl-meta { text-align: right; }
+.tl-item.left .tl-meta { text-align: left; padding-left: 24px; }
+.tl-date { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--sky); }
+.tl-loc { font-size: 12px; color: var(--gray); margin-top: 3px; }
+
+/* PROJECTS */
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 1040px; margin: 0 auto; }
+.proj-card {
+  background: white; border-radius: 18px; overflow: hidden; cursor: pointer;
+  box-shadow: var(--card-shadow); transition: transform 0.28s, box-shadow 0.28s;
+}
+.proj-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(15,31,61,0.18); }
+.proj-img {
+  height: 240px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; font-size: 72px; transition: filter 0.38s;
+}
+.proj-card:hover .proj-img { filter: grayscale(85%) brightness(0.7); }
+.proj-overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s; background: rgba(15,31,61,0.5);
+}
+.proj-card:hover .proj-overlay { opacity: 1; }
+.proj-overlay span {
+  color: white; font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; border: 2px solid white; padding: 11px 26px; border-radius: 4px;
+}
+.proj-foot { padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; }
+.proj-title { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.35; }
+.proj-yr {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: white;
+  background: var(--navy); padding: 4px 10px; border-radius: 12px; white-space: nowrap; margin-left: 12px;
+}
+.proj-tag-row { padding: 0 22px 18px; display: flex; gap: 6px; flex-wrap: wrap; }
+.proj-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; letter-spacing: 0.05em; }
+
+/* RESUME */
+.resume-card {
+  max-width: 680px; margin: 0 auto; background: white; border-radius: 20px;
+  padding: 56px 52px; box-shadow: var(--card-shadow); text-align: center; border-top: 5px solid var(--sky);
+}
+.resume-avatar {
+  width: 80px; height: 80px; border-radius: 50%; background: var(--sky-pale);
+  display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px;
+}
+.resume-name { font-family: 'DM Serif Display', serif; font-size: 30px; margin-bottom: 8px; }
+.resume-sub { font-size: 14px; color: var(--gray); margin-bottom: 32px; line-height: 1.6; }
+.resume-btns { display: flex; gap: 14px; justify-content: center; }
+.btn-navy {
+  background: var(--navy); color: white; padding: 14px 32px; text-decoration: none;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 8px; transition: all 0.2s; display: inline-block;
+}
+.btn-navy:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,31,61,0.3); }
+.btn-outline-navy {
+  background: transparent; color: var(--navy); padding: 14px 32px; text-decoration: none;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 8px; border: 2px solid var(--navy); transition: all 0.2s; display: inline-block;
+}
+.btn-outline-navy:hover { background: var(--navy); color: white; }
+
+/* FOOTER */
+footer { background: #060e1d; color: rgba(255,255,255,0.4); text-align: center; padding: 32px; font-size: 13px; }
+footer a { color: var(--sky); text-decoration: none; }
+
+/* MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(6,14,29,0.85); backdrop-filter: blur(6px); overflow-y: auto;
+}
+.modal-overlay.open { display: block; }
+.modal-box {
+  background: white; max-width: 900px; margin: 48px auto 48px; border-radius: 24px;
+  overflow: hidden; position: relative; box-shadow: 0 32px 100px rgba(0,0,0,0.4);
+  animation: slideUp 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes slideUp { from { opacity:0; transform: translateY(50px); } to { opacity:1; transform: translateY(0); } }
+.modal-close {
+  position: absolute; top: 20px; right: 20px; z-index: 10;
+  width: 38px; height: 38px; border-radius: 50%; border: none;
+  background: rgba(255,255,255,0.9); cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15); transition: background 0.2s; color: var(--navy);
+}
+.modal-close:hover { background: var(--sky); color: white; }
+
+.m-hero { height: 300px; display: flex; align-items: flex-end; justify-content: flex-start; padding: 0 48px 32px; position: relative; overflow: hidden; }
+.m-hero-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 120px; opacity: 0.18; pointer-events: none; }
+.m-hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,31,61,0.3) 0%, rgba(15,31,61,0.85) 100%); }
+.m-hero-content { position: relative; z-index: 1; }
+.m-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px 14px; border-radius: 20px; margin-bottom: 10px; text-transform: uppercase; }
+.m-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: white; line-height: 1.25; max-width: 600px; }
+
+.m-body { padding: 40px 48px 52px; }
+.m-meta { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+.m-tag { font-size: 12px; font-weight: 600; background: #f0f4f8; color: var(--navy); padding: 5px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+.m-section { margin-bottom: 36px; }
+.m-section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--sky); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; }
+.m-section p { font-size: 15px; color: var(--gray); line-height: 1.8; }
+
+.m-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 36px; }
+.m-kpi { border-radius: 12px; padding: 16px 18px; border: 1px solid var(--gray-light); }
+.m-kpi-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.m-kpi-val { font-size: 14px; font-weight: 700; color: var(--text); }
+
+.m-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 36px; }
+.m-gallery-img { border-radius: 12px; overflow: hidden; height: 180px; display: flex; align-items: center; justify-content: center; font-size: 56px; position: relative; }
+.m-gallery-img span { position: relative; z-index: 1; }
+.m-gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px 12px; background: linear-gradient(to top, rgba(15,31,61,0.75), transparent); font-size: 11px; color: rgba(255,255,255,0.85); font-weight: 500; z-index: 2; }
+
+.m-team-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; margin-bottom: 10px; }
+.m-team-table thead tr { background: var(--navy); }
+.m-team-table thead th { color: white; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; padding: 13px 16px; text-align: left; text-transform: uppercase; }
+.m-team-table tbody tr:nth-child(even) { background: #f8fafc; }
+.m-team-table tbody tr:nth-child(odd) { background: white; }
+.m-team-table tbody tr:hover { background: var(--sky-pale); }
+.m-team-table td { font-size: 13px; color: var(--text); padding: 12px 16px; border-bottom: 1px solid #eef2f7; }
+.m-team-table td:first-child { font-weight: 600; color: var(--navy); }
+
+.m-role-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; }
+.m-role-table thead tr { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); }
+.m-role-table thead th { color: white; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; padding: 14px 16px; text-align: left; text-transform: uppercase; }
+.m-role-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid #eef2f7; vertical-align: top; line-height: 1.5; }
+.m-role-table td:first-child { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--navy); background: #f8fafc; width: 140px; }
+.m-role-table td:nth-child(2) { color: var(--gray); background: white; }
+.m-role-table td:last-child { color: var(--gray); background: #fbfcfe; }
+.row-sky td:first-child { background: #e0f4fa; color: #0e7490; }
+.row-green td:first-child { background: #d1fae5; color: #065f46; }
+.row-amber td:first-child { background: #fef3c7; color: #92400e; }
+.row-rose td:first-child { background: #ffe4e6; color: #9f1239; }
+
+.m-sw-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.m-sw-chip { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; border: 1.5px solid; }
+
+.skill-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.skill-chip { background: var(--navy); color: rgba(255,255,255,0.85); font-size: 12px; padding: 5px 14px; border-radius: 20px; font-weight: 500; }
+
+.m-link { display: inline-flex; align-items: center; gap: 8px; background: var(--sky); color: var(--navy); padding: 12px 26px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; transition: all 0.2s; margin-top: 8px; }
+.m-link:hover { background: var(--sky-light); transform: translateY(-1px); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#resume">Resume</a></li>
+  </ul>
+  <div class="nav-title">Divyanshu's Portfolio</div>
+  <div class="nav-social">
+    <a href="https://www.linkedin.com/in/divyanshu-255757227/" target="_blank" title="LinkedIn">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://github.com/" target="_blank" title="GitHub">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    </a>
+    <a href="mailto:divyanshu0197@gmail.com" title="Email">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO — light bg, photo left, text right -->
+<section id="home">
+<div class="hero-photo-frame">
+  <img src="images/profile.jpeg" alt="Divyanshu"
+       style="width:100%; height:100%; object-fit:cover;">
+  <div class="hero-badge">B.Tech · MNIT Jaipur</div>
+</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-eyebrow">Mechanical Engineer</div>
+    <h1 class="hero-name">I'm Divyanshu,<br><em>I Build Things.</em></h1>
+    <p class="hero-subtitle">Robotics · Product Design · Machine Systems</p>
+    <p class="hero-desc">
+      Final-year B.Tech student at MNIT Jaipur with Honours in Robotics & Automation. I have interned at DRDO and IIT Jodhpur, designing everything from UAV braking systems to robotic arms. Driven by a passion for mechanism design, precision engineering, and making assistive technology affordable.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">5+</div>
+        <div class="hero-stat-label">Projects</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div>
+        <div class="hero-stat-num">2</div>
+        <div class="hero-stat-label">Internships</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div>
+        <div class="hero-stat-num">8.49</div>
+        <div class="hero-stat-label">CGPA</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="https://www.linkedin.com/in/divyanshu-255757227/" target="_blank" class="btn-navy-solid">LinkedIn</a>
+      <a href="#projects" class="btn-ghost-dark">View Projects</a>
+      <a href="#resume" class="btn-ghost-dark">Resume</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec-light">
+  <div style="max-width:960px;margin:0 auto;">
+    <div class="sec-eyebrow">About Me</div>
+    <h2 class="sec-title">Who I Am</h2>
+    <p class="sec-sub">A quick honest snapshot — the good and the not-so-good.</p>
+
+    <div class="sw-grid" style="margin-bottom:72px;">
+      <div class="sw-card">
+        <div class="sw-card-header"><div class="sw-icon green">💪</div><h3>Strengths</h3></div>
+        <ul>
+          <li>Addicted to machining.</li>
+          <li>Never lost to Magnus Carlsen in chess.</li>
+          <li>Like to design, build, and assemble everything.</li>
+        </ul>
+      </div>
+      <div class="sw-card weak">
+        <div class="sw-card-header"><div class="sw-icon red">⚡</div><h3>Weaknesses</h3></div>
+        <ul>
+          <li>Addicted to machining.</li>
+          <li>4th year in a row cursed with laptop problems.</li>
+          <li>Really like to disassemble and break things.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-eyebrow">Education</div>
+    <h2 class="sec-title" style="margin-bottom:32px;">Academic Background</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-deg">B.Tech – Mechanical Engineering</div>
+          <div class="edu-year">Nov 2022 – Jun 2026 · CGPA 8.49</div>
+          <div class="edu-inst">Malaviya National Institute of Technology, Jaipur</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px;font-style:italic;">Honours in Robotics & Automation</div>
+        </div>
+      </div>
+      <div class="edu-card two">
+        <div class="edu-icon">📚</div>
+        <div>
+          <div class="edu-deg">Senior Secondary (CBSE)</div>
+          <div class="edu-year">2019 – 2021 · 92.6%</div>
+          <div class="edu-inst">Gyansthali Bhadeja</div>
+        </div>
+      </div>
+      <div class="edu-card three">
+        <div class="edu-icon">🏫</div>
+        <div>
+          <div class="edu-deg">Primary & Secondary (CBSE)</div>
+          <div class="edu-year">2008 – 2019 · 94.5%</div>
+          <div class="edu-inst">Nazareth Academy</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div style="margin-top:72px;">
+      <div class="sec-eyebrow">Technical Skills</div>
+      <h2 class="sec-title" style="margin-bottom:32px;">Tools & Technologies</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
+          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Design</div>
+          <div style="font-size:14px;color:var(--gray);">AutoCAD · SolidWorks · Fusion 360</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
+          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Modeling, Analysis & Simulation</div>
+          <div style="font-size:14px;color:var(--gray);">MATLAB/Simulink · Abaqus · Ansys</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
+          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Programming</div>
+          <div style="font-size:14px;color:var(--gray);">Python · C++ · LaTeX</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
+          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Coursework</div>
+          <div style="font-size:14px;color:var(--gray);">Mechanical Design · Product Design & Development · Advanced Machining · Computer Vision</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements -->
+    <div style="margin-top:72px;">
+      <div class="sec-eyebrow">Achievements</div>
+      <h2 class="sec-title" style="margin-bottom:32px;">Highlights</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:24px;flex-shrink:0;">🏆</div>
+          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Secured <strong style="color:var(--text);">top 1.25%</strong> in JEE Mains and <strong style="color:var(--text);">top 6.5%</strong> in JEE Advanced among nationwide candidates.</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:24px;flex-shrink:0;">🎵</div>
+          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Award for <strong style="color:var(--text);">outstanding performance in singing</strong> across school career.</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:24px;flex-shrink:0;">🔧</div>
+          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Organised and led a successful <strong style="color:var(--text);">Fusion 360 workshop</strong> for CAM Society, MNIT Jaipur.</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:24px;flex-shrink:0;">🏏</div>
+          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Led the team as <strong style="color:var(--text);">captain</strong> in branch-level cricket matches at college.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="sec-mid">
+  <div style="max-width:960px;margin:0 auto;">
+    <div class="sec-eyebrow">Experience</div>
+    <h2 class="sec-title" style="margin-bottom:8px;">Where I've Worked</h2>
+    <p class="sec-sub">Defence research, academic labs, and everything in between.</p>
+
+    <div class="logo-row">
+      <div class="logo-chip" style="background:#1a4a1a;color:white;" title="DRDO">🛡️</div>
+      <div class="logo-chip" style="background:#fff;" title="IIT Jodhpur">🎓</div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="tl-line"></div>
+      <div class="tl-item right">
+        <div class="tl-meta" style="text-align:right;padding-right:24px;">
+          <div class="tl-date">Jun 2025 – Dec 2025</div>
+          <div class="tl-loc">Bengaluru, Karnataka</div>
+        </div>
+        <div class="tl-dot">🛡️</div>
+        <div class="tl-card">
+          <div class="tl-card-img" style="background:linear-gradient(135deg,#0f1f3d,#1a3260);">✈️</div>
+          <div class="tl-card-body">
+            <h3>DRDO – Aeronautical Development Establishment</h3>
+            <p>Project Intern · Developed and validated a UAV wheel–braking system, focusing on braking dynamics, slip behaviour, and load transfer during landing. Tools: MATLAB/Simulink.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item left">
+        <div class="tl-meta" style="text-align:left;padding-left:24px;">
+          <div class="tl-date">Jun 2024 – Jul 2024</div>
+          <div class="tl-loc">Jodhpur, Rajasthan</div>
+        </div>
+        <div class="tl-dot" style="background:var(--sky);">🎓</div>
+        <div class="tl-card">
+          <div class="tl-card-img" style="background:linear-gradient(135deg,#0369a1,#0ea5e9);">📷</div>
+          <div class="tl-card-body">
+            <h3>IIT Jodhpur – Summer Research Intern</h3>
+            <p>Calibrated a robot-mounted camera via multi-view imaging. Reduced reprojection error by 17%. Tools: Computer Vision, C++.</p>
+            <a href="https://www.linkedin.com/school/31180620/" target="_blank" class="tl-read">Read More →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Positions of Responsibility -->
+    <div style="margin-top:64px;">
+      <div class="sec-eyebrow">Positions</div>
+      <h2 class="sec-title" style="margin-bottom:32px;">Positions of Responsibility</h2>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sky);">
+          <div><span style="font-weight:700;color:var(--text);">Senior Executive</span><span style="color:var(--gray);font-size:14px;"> – CAM Society, MNIT Jaipur</span>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px;">Led development of an affordable stair-climbing wheelchair design.</div></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sky);font-weight:600;white-space:nowrap;margin-left:16px;">Jul 2024 – Present</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--navy);">
+          <div><span style="font-weight:700;color:var(--text);">Joint Secretary</span><span style="color:var(--gray);font-size:14px;"> – Unnat Bharat Abhiyan Team, MNIT Jaipur</span>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px;">Led cleanliness drives and educational initiatives.</div></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sky);font-weight:600;white-space:nowrap;margin-left:16px;">Aug 2024 – May 2025</div>
+        </div>
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sky-light);">
+          <div><span style="font-weight:700;color:var(--text);">Member</span><span style="color:var(--gray);font-size:14px;"> – Music Club, MNIT Jaipur</span></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sky);font-weight:600;white-space:nowrap;margin-left:16px;">Aug 2024 – May 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec-light">
+  <div style="max-width:1040px;margin:0 auto;">
+    <div class="sec-eyebrow">Portfolio</div>
+    <h2 class="sec-title">Projects</h2>
+    <p class="sec-sub">Click any card for the full case study — roles, team breakdown, images & tools.</p>
+
+    <div class="projects-grid">
+      <div class="proj-card" onclick="openProject('robotic-arm')">
+        <div class="proj-img" style="background:linear-gradient(135deg,#0f1f3d,#1e40af);">🦾<div class="proj-overlay"><span>VIEW PROJECT</span></div></div>
+        <div class="proj-tag-row">
+          <span class="proj-tag" style="background:#e0f4fa;color:#0369a1;">Robotics</span>
+          <span class="proj-tag" style="background:#d1fae5;color:#065f46;">Automation</span>
+        </div>
+        <div class="proj-foot"><div class="proj-title">Robotic Arm – Bottle Pick & Place System</div><span class="proj-yr">2026</span></div>
+      </div>
+
+      <div class="proj-card" onclick="openProject('cooling-system')">
+        <div class="proj-img" style="background:linear-gradient(135deg,#0e7490,#06b6d4);">❄️<div class="proj-overlay"><span>VIEW PROJECT</span></div></div>
+        <div class="proj-tag-row">
+          <span class="proj-tag" style="background:#dbeafe;color:#1e40af;">Thermal Eng.</span>
+          <span class="proj-tag" style="background:#d1fae5;color:#065f46;">Energy Efficiency</span>
+        </div>
+        <div class="proj-foot"><div class="proj-title">Energy Efficient Hybrid Cooling System</div><span class="proj-yr">2026</span></div>
+      </div>
+
+      <div class="proj-card" onclick="openProject('dirt-removal')">
+        <div class="proj-img" style="background:linear-gradient(135deg,#1e3a5f,#2563eb);">👟<div class="proj-overlay"><span>VIEW PROJECT</span></div></div>
+        <div class="proj-tag-row">
+          <span class="proj-tag" style="background:#ede9fe;color:#5b21b6;">Product Design</span>
+          <span class="proj-tag" style="background:#fef3c7;color:#92400e;">Mechanism</span>
+        </div>
+        <div class="proj-foot"><div class="proj-title">Automated Dirt Removal System for Footwear OutSole</div><span class="proj-yr">2025</span></div>
+      </div>
+
+      <div class="proj-card" onclick="openProject('crane')">
+        <div class="proj-img" style="background:linear-gradient(135deg,#292524,#44403c);">🏗️<div class="proj-overlay"><span>VIEW PROJECT</span></div></div>
+        <div class="proj-tag-row">
+          <span class="proj-tag" style="background:#fce7f3;color:#9d174d;">Machine Design</span>
+          <span class="proj-tag" style="background:#fef3c7;color:#92400e;">Structural</span>
+        </div>
+        <div class="proj-foot"><div class="proj-title">Pickup Truck-Mounted Crane for Small Load Handling</div><span class="proj-yr">2024</span></div>
+      </div>
+
+      <div class="proj-card" onclick="openProject('wheelchair')" style="grid-column:span 2;">
+        <div class="proj-img" style="background:linear-gradient(135deg,#064e3b,#10b981);height:220px;">♿<div class="proj-overlay"><span>VIEW PROJECT</span></div></div>
+        <div class="proj-tag-row">
+          <span class="proj-tag" style="background:#d1fae5;color:#065f46;">Assistive Tech</span>
+          <span class="proj-tag" style="background:#e0f4fa;color:#0369a1;">Human-Centred</span>
+          <span class="proj-tag" style="background:#ede9fe;color:#5b21b6;">Mechanism Design</span>
+        </div>
+        <div class="proj-foot"><div class="proj-title">Affordable Stair Climbing Wheelchair System</div><span class="proj-yr">2025</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume" class="sec-mid">
+  <div style="max-width:680px;margin:0 auto;text-align:center;">
+    <div class="sec-eyebrow">Resume</div>
+    <h2 class="sec-title" style="margin-bottom:36px;">Download or View</h2>
+    <div class="resume-card">
+      <div class="resume-avatar">📄</div>
+      <div class="resume-name">Divyanshu</div>
+      <div class="resume-sub">Mechanical Engineer · MNIT Jaipur<br>DRDO · IIT Jodhpur · Robotics & Automation<br>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sky);">divyanshu0197@gmail.com</span>
+      </div>
+      <div class="resume-btns">
+        <a href="#" class="btn-navy" download>⬇ Download PDF</a>
+        <a href="#" class="btn-outline-navy" target="_blank">↗ Open</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Divyanshu · B.Tech Mechanical Engineering, MNIT Jaipur · <a href="mailto:divyanshu0197@gmail.com">divyanshu0197@gmail.com</a></p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const projects = {
+  'robotic-arm': {
+    emoji:'🦾', heroBg:'linear-gradient(135deg,#0f1f3d,#1e3a8a)',
+    badgeBg:'#1e40af', badgeColor:'#bfdbfe', badge:'Robotics & Automation · 2026',
+    title:'Design & Development of a Robotic Arm for Bottle Pick & Place System',
+    role:'Product Design Engineer', team:'AutoGrip', year:'2026', inst:'MNIT Jaipur',
+    overview:'Led the design and development of a 4-DOF robotic pick and place system for automated bottle handling. Focused on robotic arm kinematics, structural design, indexing mechanism integration, and actuator-driven motion control to achieve accurate and repeatable bottle placement in an industrial basket arrangement.',
+    kpis:[
+      {label:'Degrees of Freedom',val:'4 DOF',bg:'#e0f4fa',c:'#0369a1'},
+      {label:'Bottle Load',val:'480 g',bg:'#d1fae5',c:'#065f46'},
+      {label:'Motion System',val:'Lead Screw',bg:'#fef3c7',c:'#92400e'},
+      {label:'Repeatability',val:'High',bg:'#ede9fe',c:'#5b21b6'},
+    ],
+    gallery:[
+      {emoji:'🦾',bg:'linear-gradient(135deg,#1e3a8a,#3b82f6)',caption:'Arm Assembly – CAD Render'},
+      {emoji:'⚙️',bg:'linear-gradient(135deg,#064e3b,#10b981)',caption:'Rotary Indexing Mechanism'},
+      {emoji:'🔩',bg:'linear-gradient(135deg,#4c1d95,#8b5cf6)',caption:'Lead Screw Drive Detail'},
+      {emoji:'🤖',bg:'linear-gradient(135deg,#111827,#374151)',caption:'Full System Prototype'},
+    ],
+    teamMembers:[
+      {name:'Divyanshu',role:'Product Design Engineer',resp:'Overall system design, kinematics, integration'},
+      {name:'Bhuvnesh Saini',role:'Mechanical Design Engineer',resp:'Component design, structural analysis'},
+    ],
+    roleTable:[
+      {domain:'Mechanical Design',roles:'Design of 4-DOF arm, CAD modeling and assembly, end-effector design',skills:'SolidWorks, Machine Design, Mechanism Design, GD&T'},
+      {domain:'Automation & Motion',roles:'Lead screw mechanism design, rotary indexing, motion planning and positioning',skills:'Robotic Kinematics, Motion Planning, Positioning Accuracy'},
+      {domain:'Controls & Electronics',roles:'Sensor integration, actuator selection and control, sequential logic implementation',skills:'Sensor Integration, Arduino / PLC, Actuator & Motor Control'},
+      {domain:'Prototype & Validation',roles:'Prototype assembly, system integration, performance testing and validation',skills:'Assembly Design, Prototype Development, System Testing'},
+    ],
+    software:[
+      {name:'SolidWorks',bg:'#ff5c5c22',c:'#b91c1c',border:'#fca5a5'},
+      {name:'ANSYS',bg:'#fcd34d22',c:'#92400e',border:'#fde68a'},
+      {name:'Simulink',bg:'#34d39922',c:'#065f46',border:'#6ee7b7'},
+      {name:'ROS',bg:'#818cf822',c:'#3730a3',border:'#a5b4fc'},
+    ],
+    link:null,
+  },
+  'cooling-system': {
+    emoji:'❄️', heroBg:'linear-gradient(135deg,#0e4f62,#0891b2)',
+    badgeBg:'#0891b2', badgeColor:'#cffafe', badge:'Thermal Engineering · 2026',
+    title:'Design & Development of an Energy Efficient Hybrid Cooling System',
+    role:'Project Lead', team:'GreenFlow', year:'2026', inst:'MNIT Jaipur',
+    overview:'Led the design and development of a hybrid cooling system integrating Indirect Evaporative Cooling (IEC), Direct Evaporative Cooling (DEC), and Direct Expansion (DX) technologies. Responsible for thermodynamic system design, component selection, adaptive control strategy, sensor integration, experimental validation, and performance optimization.',
+    kpis:[
+      {label:'Energy Saved',val:'32%',bg:'#d1fae5',c:'#065f46'},
+      {label:'Cooling Modes',val:'IEC + DEC + DX',bg:'#e0f4fa',c:'#0369a1'},
+      {label:'Optimization',val:'COP-based',bg:'#fef3c7',c:'#92400e'},
+      {label:'Validation',val:'Experimental',bg:'#ede9fe',c:'#5b21b6'},
+    ],
+    gallery:[
+      {emoji:'❄️',bg:'linear-gradient(135deg,#0c4a6e,#0ea5e9)',caption:'System Architecture – CAD'},
+      {emoji:'🌡️',bg:'linear-gradient(135deg,#064e3b,#10b981)',caption:'Sensor & Data Acquisition Setup'},
+      {emoji:'📊',bg:'linear-gradient(135deg,#1e1b4b,#4f46e5)',caption:'COP Analysis – Simulink'},
+      {emoji:'🔧',bg:'linear-gradient(135deg,#292524,#78716c)',caption:'Physical Prototype Assembly'},
+    ],
+    teamMembers:[
+      {name:'Sagar Premani',role:'Project Lead',resp:'HVAC architecture, system design'},
+      {name:'Vivek Pharne',role:'Testing & Validation Engineer',resp:'Experimental testing, COP analysis'},
+      {name:'Salim Beg',role:'Mechanical Design Engineer',resp:'Component integration, prototype assembly'},
+    ],
+    roleTable:[
+      {domain:'Thermal System Design',roles:'HVAC architecture, thermodynamic modeling, psychrometric analysis and energy optimization',skills:'HVAC Engineering, Heat & Mass Transfer, Psychrometric Analysis'},
+      {domain:'Mechanical Design',roles:'Prototype development, mechanical assembly, component integration',skills:'Mechanical Assembly, Prototype Development, CAD Modeling'},
+      {domain:'Controls & Instrumentation',roles:'Sensor integration, data acquisition, automation and performance monitoring',skills:'Sensor Integration, Data Acquisition, Arduino / PLC'},
+      {domain:'Testing & Validation',roles:'Experimental testing, COP and energy consumption analysis, performance evaluation',skills:'Experimental Research, COP Analysis, Energy Consumption Analysis'},
+    ],
+    software:[
+      {name:'SolidWorks',bg:'#ff5c5c22',c:'#b91c1c',border:'#fca5a5'},
+      {name:'EasyEDA',bg:'#34d39922',c:'#065f46',border:'#6ee7b7'},
+      {name:'Python',bg:'#fcd34d22',c:'#92400e',border:'#fde68a'},
+      {name:'Excel',bg:'#818cf822',c:'#3730a3',border:'#a5b4fc'},
+    ],
+    link:null,
+  },
+  'dirt-removal': {
+    emoji:'👟', heroBg:'linear-gradient(135deg,#1e3a5f,#2563eb)',
+    badgeBg:'#2563eb', badgeColor:'#dbeafe', badge:'Product Design · 2025',
+    title:'Automated Dirt Removal System for OutSole of Footwear',
+    role:'Product Design Engineer', team:'StepPure', year:'2025', inst:'MNIT Jaipur',
+    overview:'Designed and developed an automated footwear outsole cleaning system to improve hygiene in indoor environments. Led the mechanical design, cleaning mechanism development, airflow integration, and prototype validation — combining rotating brushes, compressed air, and fan-assisted heating.',
+    kpis:[
+      {label:'Cleaning Action',val:'Brush + Air + Heat',bg:'#e0f4fa',c:'#0369a1'},
+      {label:'Cycle Time',val:'3–5 seconds',bg:'#d1fae5',c:'#065f46'},
+      {label:'Dirt Type',val:'Dry & Wet',bg:'#fef3c7',c:'#92400e'},
+      {label:'Application',val:'Clean Rooms',bg:'#ede9fe',c:'#5b21b6'},
+    ],
+    gallery:[
+      {emoji:'👟',bg:'linear-gradient(135deg,#1e3a8a,#3b82f6)',caption:'Full System – CAD Assembly'},
+      {emoji:'🖌️',bg:'linear-gradient(135deg,#4c1d95,#8b5cf6)',caption:'Rotating Brush Mechanism'},
+      {emoji:'💨',bg:'linear-gradient(135deg,#0c4a6e,#0ea5e9)',caption:'Compressed Air Manifold Layout'},
+      {emoji:'🔥',bg:'linear-gradient(135deg,#7c2d12,#ea580c)',caption:'Fan-Assisted Drying Module'},
+    ],
+    teamMembers:[
+      {name:'Divyanshu',role:'Product Design Engineer',resp:'System design, CAD, product architecture'},
+      {name:'Prayag',role:'Mechanical Design Engineer',resp:'Mechanism design, motion transmission'},
+      {name:'Salim Beg',role:'Structural Analysis Engineer',resp:'Structural checks, component validation'},
+    ],
+    roleTable:[
+      {domain:'Product Design',roles:'Mechanical system design, CAD modeling and assembly, product architecture',skills:'Mechanical Design, CAD Modeling, Product Development, Engineering Drawings'},
+      {domain:'Mechanism Design',roles:'Rotating brush mechanism, airflow system integration, fan-assisted drying, motion transmission',skills:'Mechanism Design, Motion Transmission, Airflow System Design'},
+      {domain:'Controls & Integration',roles:'Motor selection and integration, electrical component integration, system sequencing',skills:'Motor Integration, Electrical Wiring, Automation Concepts'},
+      {domain:'Prototype & Validation',roles:'Prototype fabrication, functional testing, cleaning performance evaluation',skills:'Machine Design, Rapid Prototyping, Experimental Validation'},
+    ],
+    software:[{name:'SolidWorks',bg:'#ff5c5c22',c:'#b91c1c',border:'#fca5a5'}],
+    link:'https://www.linkedin.com/in/divyanshu-255757227/',
+  },
+  'crane': {
+    emoji:'🏗️', heroBg:'linear-gradient(135deg,#292524,#78716c)',
+    badgeBg:'#78716c', badgeColor:'#fafaf9', badge:'Machine Design · 2024',
+    title:'Design of a Pickup Truck-Mounted Crane for Small Load Handling',
+    role:'Mechanical Design Engineer', team:'CraneCraft', year:'2024', inst:'MNIT Jaipur',
+    overview:'Designed a compact pickup truck-mounted crane for safe and efficient small-load handling. Led conceptual design, structural layout, boom mechanism development, load capacity analysis, and folding mechanism integration to deliver a portable lifting solution.',
+    kpis:[
+      {label:'Load Capacity',val:'500 kg',bg:'#fce7f3',c:'#9d174d'},
+      {label:'Boom Reach',val:'3 metres',bg:'#fef3c7',c:'#92400e'},
+      {label:'Rotation',val:'360° Manual',bg:'#e0f4fa',c:'#0369a1'},
+      {label:'Storage',val:'Foldable',bg:'#d1fae5',c:'#065f46'},
+    ],
+    gallery:[
+      {emoji:'🏗️',bg:'linear-gradient(135deg,#1e3a5f,#475569)',caption:'Full Crane Assembly – CAD'},
+      {emoji:'🔩',bg:'linear-gradient(135deg,#292524,#44403c)',caption:'2-Stage Boom Detail'},
+      {emoji:'🔄',bg:'linear-gradient(135deg,#0c4a6e,#0369a1)',caption:'360° Slewing Ring Mechanism'},
+      {emoji:'📐',bg:'linear-gradient(135deg,#1e1b4b,#4f46e5)',caption:'FEA Stress Distribution'},
+    ],
+    teamMembers:[
+      {name:'Divyanshu',role:'Mechanical Design Engineer',resp:'Machine design, CAD, structural layout'},
+      {name:'Prayag',role:'Design Engineer',resp:'Boom mechanism, lifting system'},
+      {name:'Aditi Bazari',role:'Analysis Engineer',resp:'Load analysis, material selection'},
+      {name:'Hanshika',role:'Documentation',resp:'Engineering documentation, design validation'},
+    ],
+    roleTable:[
+      {domain:'Mechanical Design',roles:'Machine design and CAD modeling, structural layout, assembly design',skills:'Machine Design, CAD Modeling, Technical Drawings'},
+      {domain:'Lifting System',roles:'Boom mechanism design, lifting system configuration, foldable structure integration',skills:'Boom Mechanism Design, Motion & Load Transmission'},
+      {domain:'Engineering Analysis',roles:'Structural and load analysis, material selection, safety evaluation',skills:'Strength of Materials, Static Force Analysis, Material Selection'},
+      {domain:'Documentation',roles:'Prototype development, engineering documentation, design validation',skills:'Product Design, Prototype Development, Engineering Documentation'},
+    ],
+    software:[
+      {name:'SolidWorks',bg:'#ff5c5c22',c:'#b91c1c',border:'#fca5a5'},
+      {name:'ANSYS',bg:'#fcd34d22',c:'#92400e',border:'#fde68a'},
+      {name:'Excel',bg:'#818cf822',c:'#3730a3',border:'#a5b4fc'},
+    ],
+    link:'https://www.linkedin.com/in/divyanshu-255757227/',
+  },
+  'wheelchair': {
+    emoji:'♿', heroBg:'linear-gradient(135deg,#064e3b,#047857)',
+    badgeBg:'#047857', badgeColor:'#d1fae5', badge:'Assistive Technology · 2025',
+    title:'Design & Development of an Affordable Stair Climbing Wheelchair System',
+    role:'Project Lead', team:'CAMspire', year:'2025', inst:'MNIT Jaipur',
+    overview:'Designed an affordable stair-climbing wheelchair attachment using an adaptive tri-wheel mechanism to enable smooth ascent and descent on varying stair geometries — improving accessibility in environments without lifts or ramps.',
+    kpis:[
+      {label:'Mechanism',val:'Tri-Wheel',bg:'#d1fae5',c:'#065f46'},
+      {label:'Compatibility',val:'Standard WCs',bg:'#e0f4fa',c:'#0369a1'},
+      {label:'Stair Riser',val:'150–200 mm',bg:'#fef3c7',c:'#92400e'},
+      {label:'Goal',val:'Affordable',bg:'#ede9fe',c:'#5b21b6'},
+    ],
+    gallery:[
+      {emoji:'♿',bg:'linear-gradient(135deg,#064e3b,#10b981)',caption:'Wheelchair Assembly – CAD'},
+      {emoji:'🔄',bg:'linear-gradient(135deg,#1e3a8a,#3b82f6)',caption:'Tri-Wheel Mechanism Detail'},
+      {emoji:'📐',bg:'linear-gradient(135deg,#1e1b4b,#4f46e5)',caption:'Kinematic Analysis'},
+      {emoji:'🧪',bg:'linear-gradient(135deg,#292524,#78716c)',caption:'Prototype Testing'},
+    ],
+    teamMembers:[
+      {name:'Divyanshu',role:'Project Lead',resp:'Mechanism design, CAD, product development, overall integration'},
+      {name:'Chetan Sharma',role:'Mechanical Design Engineer',resp:'Structural design, wheelchair attachment'},
+      {name:'Anand',role:'Simulation Engineer',resp:'Kinematic analysis, FEA simulation'},
+      {name:'Ashutosh Sharma',role:'Testing & Validation',resp:'Prototype testing, performance validation'},
+    ],
+    roleTable:[
+      {domain:'Mechanical Design',roles:'Mechanism design and CAD modeling, product development, structural design for wheelchair attachment',skills:'Mechanism Design, CAD Modeling, Product Development, DFM'},
+      {domain:'Mobility System',roles:'Tri-wheel mechanism design, wheelchair integration, stability and ergonomic optimization',skills:'Tri-Wheel Mechanism Design, Stability Analysis, Ergonomic Design'},
+      {domain:'Engineering Analysis',roles:'Kinematic and load analysis, material selection, design optimization and safety assessment',skills:'Kinematic Analysis, Strength & Load Calculations, Material Selection'},
+      {domain:'Prototype & Validation',roles:'Prototype development, functional testing, performance validation and documentation',skills:'Assistive Technology Design, Human-Centred Design, Prototype Development'},
+    ],
+    software:[
+      {name:'SolidWorks',bg:'#ff5c5c22',c:'#b91c1c',border:'#fca5a5'},
+      {name:'ANSYS',bg:'#fcd34d22',c:'#92400e',border:'#fde68a'},
+      {name:'Excel',bg:'#818cf822',c:'#3730a3',border:'#a5b4fc'},
+    ],
+    link:'https://www.linkedin.com/in/divyanshu-255757227/',
+  },
+};
+
+const rowClasses = ['row-sky','row-green','row-amber','row-rose'];
+
+function openProject(id) {
+  const p = projects[id];
+  if (!p) return;
+  const kpiHTML = p.kpis.map(k=>`<div class="m-kpi" style="background:${k.bg};border-color:${k.bg};"><div class="m-kpi-label" style="color:${k.c};">${k.label}</div><div class="m-kpi-val" style="color:${k.c};">${k.val}</div></div>`).join('');
+  const galleryHTML = p.gallery.map(g=>`<div class="m-gallery-img" style="background:${g.bg};"><span>${g.emoji}</span><div class="m-gallery-caption">${g.caption} — add image here</div></div>`).join('');
+  const teamHTML = p.teamMembers.map(m=>`<tr><td>${m.name}</td><td>${m.role}</td><td>${m.resp}</td></tr>`).join('');
+  const roleHTML = p.roleTable.map((r,i)=>`<tr class="${rowClasses[i]||''}"><td>${r.domain}</td><td>${r.roles}</td><td>${r.skills}</td></tr>`).join('');
+  const swHTML = p.software.map(s=>`<div class="m-sw-chip" style="background:${s.bg};color:${s.c};border-color:${s.border};">${s.name}</div>`).join('');
+  const linkHTML = p.link ? `<a href="${p.link}" target="_blank" class="m-link">View on LinkedIn ↗</a>` : '';
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="m-hero" style="background:${p.heroBg};">
+      <div class="m-hero-bg">${p.emoji}</div>
+      <div class="m-hero-gradient"></div>
+      <div class="m-hero-content">
+        <div class="m-badge" style="background:${p.badgeBg};color:${p.badgeColor};">${p.badge}</div>
+        <div class="m-title">${p.title}</div>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="m-meta">
+        <span class="m-tag">🎓 ${p.inst}</span>
+        <span class="m-tag">👤 ${p.role}</span>
+        <span class="m-tag">👥 Team: ${p.team}</span>
+        <span class="m-tag">📅 ${p.year}</span>
+      </div>
+      <div class="m-section"><div class="m-section-label">Role Overview</div><p>${p.overview}</p></div>
+      <div class="m-section"><div class="m-section-label">Key Highlights</div><div class="m-kpis">${kpiHTML}</div></div>
+      <div class="m-section"><div class="m-section-label">Project Visuals — Add Images Below</div><div class="m-gallery">${galleryHTML}</div><p style="font-size:12px;color:#94a3b8;font-style:italic;">📌 Replace each block above with actual project photos or CAD renders.</p></div>
+      <div class="m-section"><div class="m-section-label">Team Members</div><table class="m-team-table"><thead><tr><th>Name</th><th>Role</th><th>Responsibilities</th></tr></thead><tbody>${teamHTML}</tbody></table></div>
+      <div class="m-section"><div class="m-section-label">Sub-Team Breakdown — Roles & Skills</div><table class="m-role-table"><thead><tr><th>Domain</th><th>Roles</th><th>Skills</th></tr></thead><tbody>${roleHTML}</tbody></table></div>
+      <div class="m-section"><div class="m-section-label">Software & Tools</div><div class="m-sw-row">${swHTML}</div></div>
+      ${linkHTML}
+    </div>`;
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+function handleOverlayClick(e) { if (e.target === document.getElementById('modal-overlay')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; } });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.tl-item, .proj-card, .edu-card, .sw-card').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(28px)';
+  el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
