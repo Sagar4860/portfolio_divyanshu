@@ -32,7 +32,8 @@ nav {
   display: flex; align-items: center; padding: 0 52px; height: 64px;
   background: rgba(15,31,61,0.97); backdrop-filter: blur(12px);
 }
-.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links { display: flex; gap: 32px; list-style: none; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
 .nav-links a {
   text-decoration: none; font-size: 13px; font-weight: 600;
   color: rgba(255,255,255,0.65); letter-spacing: 0.08em; text-transform: uppercase;
@@ -42,8 +43,9 @@ nav {
 .nav-title {
   position: absolute; left: 50%; transform: translateX(-50%);
   font-family: 'DM Serif Display', serif; font-size: 17px; color: white;
+  white-space: nowrap;
 }
-.nav-social { margin-left: auto; display: flex; gap: 18px; align-items: center; }
+.nav-social { margin-left: auto; display: flex; gap: 18px; align-items: center; flex-shrink: 0; }
 .nav-social a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
 .nav-social a:hover { color: var(--sky); }
 
@@ -95,12 +97,13 @@ nav {
   box-shadow: 0 4px 14px rgba(15,31,61,0.25);
 }
 
-.hero-right { flex: 1; padding-left: 450px; position: relative; z-index: 1; }
+.hero-right { flex: 1; padding-left: 450px; position: relative; z-index: 1; text-align: center; }
+.hero-right > * { margin-left: auto; margin-right: auto; }
 
 .hero-eyebrow {
   font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
   color: var(--sky); letter-spacing: 0.15em; text-transform: uppercase;
-  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 10px;
 }
 .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 2px; background: var(--sky); }
 
@@ -125,7 +128,7 @@ nav {
 .hero-stat-label { font-size: 12px; color: var(--gray); margin-top: 4px; letter-spacing: 0.05em; }
 .hero-divider { width: 1px; background: var(--gray-light); }
 
-.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 .btn-navy-solid {
   background: var(--navy); color: white; padding: 13px 28px;
   text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
@@ -203,7 +206,7 @@ nav {
 .tl-item.left { flex-direction: row-reverse; }
 .tl-card {
   background: white; border-radius: 16px; overflow: hidden; width: calc(50% - 52px);
-  box-shadow: var(--card-shadow); transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: var(--card-shadow); transition: transform 0.25s, box-shadow 0.25s; cursor: pointer;
 }
 .tl-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(15,31,61,0.15); }
 .tl-card-img { height: 160px; width: 100%; display: flex; align-items: center; justify-content: center; font-size: 56px; }
@@ -358,6 +361,90 @@ footer a { color: var(--sky); text-decoration: none; }
 
 .m-link { display: inline-flex; align-items: center; gap: 8px; background: var(--sky); color: var(--navy); padding: 12px 26px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700; transition: all 0.2s; margin-top: 8px; }
 .m-link:hover { background: var(--sky-light); transform: translateY(-1px); }
+
+/* ===================== MOBILE RESPONSIVE ===================== */
+@media (max-width: 900px) {
+  nav { padding: 0 16px; }
+  .nav-title { display: none; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: 11px; white-space: nowrap; }
+  .nav-social { gap: 8px; margin-left: 8px; flex-shrink: 0; }
+
+  #home {
+    flex-direction: column;
+    align-items: center;
+    padding: 96px 24px 56px;
+    text-align: center;
+  }
+  #home::before { width: 100%; opacity: 0.5; }
+
+  .hero-left {
+    flex: none;
+    order: -1; /* photo always first on mobile */
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .hero-photo-frame {
+    width: 230px; height: 280px;
+  }
+  .hero-badge { font-size: 10px; padding: 9px 14px; }
+
+  .hero-right {
+    padding-left: 0;
+    flex: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-eyebrow { justify-content: center; }
+  .hero-name { font-size: 36px; }
+  .hero-desc { max-width: 100%; }
+  .hero-stats { justify-content: center; gap: 22px; }
+  .hero-btns { justify-content: center; }
+
+  .sec-light, .sec-dark, .sec-mid { padding: 64px 20px; }
+  .sec-title { font-size: 30px; }
+
+  .sw-grid { grid-template-columns: 1fr; gap: 20px; }
+  .edu-grid { grid-template-columns: 1fr; gap: 18px; }
+
+  div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  .timeline-wrap .tl-line { left: 18px; }
+  .tl-item, .tl-item.left { flex-direction: column !important; align-items: flex-start; }
+  .tl-item { padding-left: 44px; margin-bottom: 40px; }
+  .tl-dot { left: 18px; top: 0; transform: translateX(-50%); width: 34px; height: 34px; font-size: 15px; }
+  .tl-card, .tl-item.left .tl-card { width: 100%; }
+  .tl-meta, .tl-item.left .tl-meta, .tl-item.right .tl-meta {
+    width: 100%; text-align: left !important; padding: 0 0 8px 0 !important;
+  }
+
+  .projects-grid { display: flex !important; flex-direction: column; grid-template-columns: none; gap: 20px; width: 100%; }
+  .proj-card { width: 100%; grid-column: auto !important; }
+  .proj-img { height: 200px; font-size: 56px; }
+
+  .resume-card { padding: 36px 22px; }
+  .resume-btns { flex-direction: column; gap: 10px; }
+
+  .m-hero { padding: 0 22px 22px; height: 220px; }
+  .m-title { font-size: 19px; }
+  .m-body { padding: 26px 20px 36px; }
+  .m-kpis { grid-template-columns: 1fr 1fr; }
+  .m-gallery { grid-template-columns: 1fr; }
+  .m-role-table, .m-team-table { display: block; overflow-x: auto; white-space: nowrap; }
+  .modal-box { margin: 16px auto; border-radius: 16px; max-width: 96%; }
+}
+
+@media (max-width: 480px) {
+  .hero-name { font-size: 30px; }
+  .hero-photo-frame { width: 190px; height: 230px; }
+  .hero-stat-num { font-size: 26px; }
+  .m-kpis { grid-template-columns: 1fr 1fr; }
+  .proj-img { height: 170px; font-size: 48px; }
+}
 </style>
 </head>
 <body>
@@ -386,36 +473,22 @@ footer a { color: var(--sky); text-decoration: none; }
 
 <!-- HERO — light bg, photo left, text right -->
 <section id="home">
-<div class="hero-photo-frame">
-  <img src="profile.jpeg" alt="Divyanshu"
-       style="width:100%; height:100%; object-fit:cover;">
-  <div class="hero-badge">B.Tech · MNIT Jaipur</div>
-</div>
+  <div class="hero-left">
+    <div class="hero-photo-frame">
+      <img src="profile.jpeg" alt="Divyanshu"
+           style="width:100%; height:100%; object-fit:cover;">
+      <div class="hero-badge">B.Tech · MNIT Jaipur</div>
+    </div>
   </div>
 
   <div class="hero-right">
-    <div class="hero-eyebrow">Mechanical Engineer</div>
-    <h1 class="hero-name">I'm Divyanshu,<br><em>I Build Things.</em></h1>
-    <p class="hero-subtitle">Robotics · Product Design · Machine Systems</p>
+    <h1 class="hero-name">I'm Divyanshu,<br><em>a Mechanical Engineer.</em></h1>
     <p class="hero-desc">
-      Final-year B.Tech student at MNIT Jaipur with Honours in Robotics & Automation. I have interned at DRDO and IIT Jodhpur, designing everything from UAV braking systems to robotic arms. Driven by a passion for mechanism design, precision engineering, and making assistive technology affordable.
+      I am currently a recent graduate from the Malaviya National Institute of Technology Jaipur, driven by a passion for advancing automation through innovative design and engineering.
     </p>
-    <div class="hero-stats">
-      <div>
-        <div class="hero-stat-num">5+</div>
-        <div class="hero-stat-label">Projects</div>
-      </div>
-      <div class="hero-divider"></div>
-      <div>
-        <div class="hero-stat-num">2</div>
-        <div class="hero-stat-label">Internships</div>
-      </div>
-      <div class="hero-divider"></div>
-      <div>
-        <div class="hero-stat-num">8.49</div>
-        <div class="hero-stat-label">CGPA</div>
-      </div>
-    </div>
+    <p class="hero-desc">
+      Scroll down to see how I'm already working towards the future of automation through engineering design.
+    </p>
     <div class="hero-btns">
       <a href="https://www.linkedin.com/in/divyanshu-255757227/" target="_blank" class="btn-navy-solid">LinkedIn</a>
       <a href="#projects" class="btn-ghost-dark">View Projects</a>
@@ -425,110 +498,7 @@ footer a { color: var(--sky); text-decoration: none; }
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="sec-light">
-  <div style="max-width:960px;margin:0 auto;">
-    <div class="sec-eyebrow">About Me</div>
-    <h2 class="sec-title">Who I Am</h2>
-    <p class="sec-sub">A quick honest snapshot — the good and the not-so-good.</p>
 
-    <div class="sw-grid" style="margin-bottom:72px;">
-      <div class="sw-card">
-        <div class="sw-card-header"><div class="sw-icon green">💪</div><h3>Strengths</h3></div>
-        <ul>
-          <li>Addicted to machining.</li>
-          <li>Never lost to Magnus Carlsen in chess.</li>
-          <li>Like to design, build, and assemble everything.</li>
-        </ul>
-      </div>
-      <div class="sw-card weak">
-        <div class="sw-card-header"><div class="sw-icon red">⚡</div><h3>Weaknesses</h3></div>
-        <ul>
-          <li>Addicted to machining.</li>
-          <li>4th year in a row cursed with laptop problems.</li>
-          <li>Really like to disassemble and break things.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="sec-eyebrow">Education</div>
-    <h2 class="sec-title" style="margin-bottom:32px;">Academic Background</h2>
-    <div class="edu-grid">
-      <div class="edu-card">
-        <div class="edu-icon">🎓</div>
-        <div>
-          <div class="edu-deg">B.Tech – Mechanical Engineering</div>
-          <div class="edu-year">Nov 2022 – Jun 2026 · CGPA 8.49</div>
-          <div class="edu-inst">Malaviya National Institute of Technology, Jaipur</div>
-          <div style="font-size:12px;color:var(--gray);margin-top:4px;font-style:italic;">Honours in Robotics & Automation</div>
-        </div>
-      </div>
-      <div class="edu-card two">
-        <div class="edu-icon">📚</div>
-        <div>
-          <div class="edu-deg">Senior Secondary (CBSE)</div>
-          <div class="edu-year">2019 – 2021 · 92.6%</div>
-          <div class="edu-inst">Gyansthali Bhadeja</div>
-        </div>
-      </div>
-      <div class="edu-card three">
-        <div class="edu-icon">🏫</div>
-        <div>
-          <div class="edu-deg">Primary & Secondary (CBSE)</div>
-          <div class="edu-year">2008 – 2019 · 94.5%</div>
-          <div class="edu-inst">Nazareth Academy</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Skills -->
-    <div style="margin-top:72px;">
-      <div class="sec-eyebrow">Technical Skills</div>
-      <h2 class="sec-title" style="margin-bottom:32px;">Tools & Technologies</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
-          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Design</div>
-          <div style="font-size:14px;color:var(--gray);">AutoCAD · SolidWorks · Fusion 360</div>
-        </div>
-        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
-          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Modeling, Analysis & Simulation</div>
-          <div style="font-size:14px;color:var(--gray);">MATLAB/Simulink · Abaqus · Ansys</div>
-        </div>
-        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
-          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Programming</div>
-          <div style="font-size:14px;color:var(--gray);">Python · C++ · LaTeX</div>
-        </div>
-        <div style="background:white;border-radius:14px;padding:22px 26px;box-shadow:var(--card-shadow);">
-          <div style="font-size:12px;font-weight:700;color:var(--sky);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Coursework</div>
-          <div style="font-size:14px;color:var(--gray);">Mechanical Design · Product Design & Development · Advanced Machining · Computer Vision</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Achievements -->
-    <div style="margin-top:72px;">
-      <div class="sec-eyebrow">Achievements</div>
-      <h2 class="sec-title" style="margin-bottom:32px;">Highlights</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
-          <div style="font-size:24px;flex-shrink:0;">🏆</div>
-          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Secured <strong style="color:var(--text);">top 1.25%</strong> in JEE Mains and <strong style="color:var(--text);">top 6.5%</strong> in JEE Advanced among nationwide candidates.</div>
-        </div>
-        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
-          <div style="font-size:24px;flex-shrink:0;">🎵</div>
-          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Award for <strong style="color:var(--text);">outstanding performance in singing</strong> across school career.</div>
-        </div>
-        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
-          <div style="font-size:24px;flex-shrink:0;">🔧</div>
-          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Organised and led a successful <strong style="color:var(--text);">Fusion 360 workshop</strong> for CAM Society, MNIT Jaipur.</div>
-        </div>
-        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;gap:14px;align-items:flex-start;">
-          <div style="font-size:24px;flex-shrink:0;">🏏</div>
-          <div style="font-size:14px;color:var(--gray);line-height:1.6;">Led the team as <strong style="color:var(--text);">captain</strong> in branch-level cricket matches at college.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- TIMELINE -->
 <section id="timeline" class="sec-mid">
@@ -550,11 +520,12 @@ footer a { color: var(--sky); text-decoration: none; }
           <div class="tl-loc">Bengaluru, Karnataka</div>
         </div>
         <div class="tl-dot">🛡️</div>
-        <div class="tl-card">
+        <div class="tl-card" onclick="openExperience('drdo')">
           <div class="tl-card-img" style="background:linear-gradient(135deg,#0f1f3d,#1a3260);">✈️</div>
           <div class="tl-card-body">
             <h3>DRDO – Aeronautical Development Establishment</h3>
             <p>Project Intern · Developed and validated a UAV wheel–braking system, focusing on braking dynamics, slip behaviour, and load transfer during landing. Tools: MATLAB/Simulink.</p>
+            <a href="#" onclick="event.stopPropagation();openExperience('drdo');return false;" class="tl-read">Read More →</a>
           </div>
         </div>
       </div>
@@ -564,12 +535,12 @@ footer a { color: var(--sky); text-decoration: none; }
           <div class="tl-loc">Jodhpur, Rajasthan</div>
         </div>
         <div class="tl-dot" style="background:var(--sky);">🎓</div>
-        <div class="tl-card">
+        <div class="tl-card" onclick="openExperience('iitj')">
           <div class="tl-card-img" style="background:linear-gradient(135deg,#0369a1,#0ea5e9);">📷</div>
           <div class="tl-card-body">
             <h3>IIT Jodhpur – Summer Research Intern</h3>
             <p>Calibrated a robot-mounted camera via multi-view imaging. Reduced reprojection error by 17%. Tools: Computer Vision, C++.</p>
-            <a href="https://www.linkedin.com/school/31180620/" target="_blank" class="tl-read">Read More →</a>
+            <a href="#" onclick="event.stopPropagation();openExperience('iitj');return false;" class="tl-read">Read More →</a>
           </div>
         </div>
       </div>
@@ -580,17 +551,17 @@ footer a { color: var(--sky); text-decoration: none; }
       <div class="sec-eyebrow">Positions</div>
       <h2 class="sec-title" style="margin-bottom:32px;">Positions of Responsibility</h2>
       <div style="display:flex;flex-direction:column;gap:16px;">
-        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sky);">
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sky);flex-wrap:wrap;gap:8px;">
           <div><span style="font-weight:700;color:var(--text);">Senior Executive</span><span style="color:var(--gray);font-size:14px;"> – CAM Society, MNIT Jaipur</span>
           <div style="font-size:12px;color:var(--gray);margin-top:4px;">Led development of an affordable stair-climbing wheelchair design.</div></div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sky);font-weight:600;white-space:nowrap;margin-left:16px;">Jul 2024 – Present</div>
         </div>
-        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--navy);">
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--navy);flex-wrap:wrap;gap:8px;">
           <div><span style="font-weight:700;color:var(--text);">Joint Secretary</span><span style="color:var(--gray);font-size:14px;"> – Unnat Bharat Abhiyan Team, MNIT Jaipur</span>
           <div style="font-size:12px;color:var(--gray);margin-top:4px;">Led cleanliness drives and educational initiatives.</div></div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sky);font-weight:600;white-space:nowrap;margin-left:16px;">Aug 2024 – May 2025</div>
         </div>
-        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sky-light);">
+        <div style="background:white;border-radius:14px;padding:20px 26px;box-shadow:var(--card-shadow);display:flex;justify-content:space-between;align-items:center;border-left:4px solid var(--sky-light);flex-wrap:wrap;gap:8px;">
           <div><span style="font-weight:700;color:var(--text);">Member</span><span style="color:var(--gray);font-size:14px;"> – Music Club, MNIT Jaipur</span></div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sky);font-weight:600;white-space:nowrap;margin-left:16px;">Aug 2024 – May 2025</div>
         </div>
@@ -869,6 +840,112 @@ const projects = {
     link:'https://www.linkedin.com/in/divyanshu-255757227/',
   },
 };
+
+const experiences = {
+  'drdo': {
+    emoji:'✈️', heroBg:'linear-gradient(135deg,#0f1f3d,#1a3260)',
+    badgeBg:'#1e40af', badgeColor:'#bfdbfe', badge:'Defence Research · Jun 2025 – Dec 2025',
+    title:'UAV Wheel–Braking System — Design, Validation & Performance Analysis',
+    role:'Project Intern', team:'ADE, DRDO', year:'2025', inst:'Bengaluru, Karnataka',
+    overview:'Worked on the development and validation of a UAV wheel-braking system at the Aeronautical Development Establishment (DRDO). Focused on braking dynamics, wheel slip behaviour, and load transfer during landing to improve UAV ground handling safety and reliability.',
+    kpis:[
+      {label:'Domain',val:'UAV Landing Gear',bg:'#e0f4fa',c:'#0369a1'},
+      {label:'Focus',val:'Braking Dynamics',bg:'#d1fae5',c:'#065f46'},
+      {label:'Analysis',val:'Slip & Load Transfer',bg:'#fef3c7',c:'#92400e'},
+      {label:'Tools',val:'MATLAB/Simulink',bg:'#ede9fe',c:'#5b21b6'},
+    ],
+    gallery:[
+      {emoji:'✈️',bg:'linear-gradient(135deg,#0f1f3d,#1a3260)',caption:'UAV Landing Gear – Reference Layout'},
+      {emoji:'🛞',bg:'linear-gradient(135deg,#1e3a8a,#3b82f6)',caption:'Wheel–Brake Assembly Detail'},
+      {emoji:'📈',bg:'linear-gradient(135deg,#1e1b4b,#4f46e5)',caption:'Braking Dynamics Simulation'},
+      {emoji:'⚙️',bg:'linear-gradient(135deg,#292524,#78716c)',caption:'Slip & Load Transfer Modeling'},
+    ],
+    teamMembers:[
+      {name:'Divyanshu',role:'Project Intern',resp:'Braking system modeling, simulation, and validation'},
+    ],
+    roleTable:[
+      {domain:'System Modeling',roles:'Modeling UAV wheel-braking dynamics, slip ratio behaviour, and braking torque response',skills:'MATLAB/Simulink, Vehicle Dynamics, Braking Systems'},
+      {domain:'Load Analysis',roles:'Analysis of load transfer during landing and braking, ground reaction force estimation',skills:'Load Transfer Analysis, Landing Gear Mechanics'},
+      {domain:'Validation',roles:'Validation of simulation results against reference data, sensitivity studies',skills:'Simulation Validation, Data Analysis'},
+    ],
+    software:[
+      {name:'MATLAB',bg:'#fcd34d22',c:'#92400e',border:'#fde68a'},
+      {name:'Simulink',bg:'#34d39922',c:'#065f46',border:'#6ee7b7'},
+    ],
+    link:null,
+  },
+  'iitj': {
+    emoji:'📷', heroBg:'linear-gradient(135deg,#0c4a6e,#0369a1)',
+    badgeBg:'#0891b2', badgeColor:'#cffafe', badge:'Summer Research · Jun 2024 – Jul 2024',
+    title:'Robot-Mounted Camera Calibration via Multi-View Imaging',
+    role:'Summer Research Intern', team:'IIT Jodhpur', year:'2024', inst:'Jodhpur, Rajasthan',
+    overview:'Calibrated a robot-mounted camera using multi-view imaging techniques to improve measurement accuracy in robotic vision tasks. Achieved a 17% reduction in reprojection error through systematic calibration and parameter optimization.',
+    kpis:[
+      {label:'Domain',val:'Computer Vision',bg:'#e0f4fa',c:'#0369a1'},
+      {label:'Method',val:'Multi-View Imaging',bg:'#d1fae5',c:'#065f46'},
+      {label:'Result',val:'17% Error Reduction',bg:'#fef3c7',c:'#92400e'},
+      {label:'Tools',val:'C++, OpenCV',bg:'#ede9fe',c:'#5b21b6'},
+    ],
+    gallery:[
+      {emoji:'📷',bg:'linear-gradient(135deg,#0c4a6e,#0ea5e9)',caption:'Robot-Mounted Camera Setup'},
+      {emoji:'🧩',bg:'linear-gradient(135deg,#1e3a8a,#3b82f6)',caption:'Multi-View Calibration Pattern'},
+      {emoji:'📐',bg:'linear-gradient(135deg,#1e1b4b,#4f46e5)',caption:'Reprojection Error Analysis'},
+      {emoji:'🤖',bg:'linear-gradient(135deg,#292524,#78716c)',caption:'Robot Arm Test Bench'},
+    ],
+    teamMembers:[
+      {name:'Divyanshu',role:'Summer Research Intern',resp:'Camera calibration, imaging setup, error analysis'},
+    ],
+    roleTable:[
+      {domain:'Vision System Setup',roles:'Setting up robot-mounted camera rig, configuring multi-view imaging capture',skills:'Computer Vision, Camera Systems, C++'},
+      {domain:'Calibration',roles:'Intrinsic and extrinsic camera calibration, multi-view parameter estimation',skills:'Camera Calibration, OpenCV, Multi-View Geometry'},
+      {domain:'Error Analysis',roles:'Reprojection error measurement, optimization for accuracy improvement',skills:'Numerical Optimization, Data Analysis'},
+    ],
+    software:[
+      {name:'C++',bg:'#818cf822',c:'#3730a3',border:'#a5b4fc'},
+      {name:'OpenCV',bg:'#ff5c5c22',c:'#b91c1c',border:'#fca5a5'},
+    ],
+    link:'https://www.linkedin.com/school/31180620/',
+  },
+};
+
+function openExperience(id) {
+  const p = experiences[id];
+  if (!p) return;
+  const kpiHTML = p.kpis.map(k=>`<div class="m-kpi" style="background:${k.bg};border-color:${k.bg};"><div class="m-kpi-label" style="color:${k.c};">${k.label}</div><div class="m-kpi-val" style="color:${k.c};">${k.val}</div></div>`).join('');
+  const galleryHTML = p.gallery.map(g=>`<div class="m-gallery-img" style="background:${g.bg};"><span>${g.emoji}</span><div class="m-gallery-caption">${g.caption} — add image here</div></div>`).join('');
+  const teamHTML = p.teamMembers.map(m=>`<tr><td>${m.name}</td><td>${m.role}</td><td>${m.resp}</td></tr>`).join('');
+  const roleHTML = p.roleTable.map((r,i)=>`<tr class="${rowClasses[i]||''}"><td>${r.domain}</td><td>${r.roles}</td><td>${r.skills}</td></tr>`).join('');
+  const swHTML = p.software.map(s=>`<div class="m-sw-chip" style="background:${s.bg};color:${s.c};border-color:${s.border};">${s.name}</div>`).join('');
+  const linkHTML = p.link ? `<a href="${p.link}" target="_blank" class="m-link">View on LinkedIn ↗</a>` : '';
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="m-hero" style="background:${p.heroBg};">
+      <div class="m-hero-bg">${p.emoji}</div>
+      <div class="m-hero-gradient"></div>
+      <div class="m-hero-content">
+        <div class="m-badge" style="background:${p.badgeBg};color:${p.badgeColor};">${p.badge}</div>
+        <div class="m-title">${p.title}</div>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="m-meta">
+        <span class="m-tag">📍 ${p.inst}</span>
+        <span class="m-tag">👤 ${p.role}</span>
+        <span class="m-tag">🏢 ${p.team}</span>
+        <span class="m-tag">📅 ${p.year}</span>
+      </div>
+      <div class="m-section"><div class="m-section-label">Role Overview</div><p>${p.overview}</p></div>
+      <div class="m-section"><div class="m-section-label">Key Highlights</div><div class="m-kpis">${kpiHTML}</div></div>
+      <div class="m-section"><div class="m-section-label">Visuals — Add Images Below</div><div class="m-gallery">${galleryHTML}</div><p style="font-size:12px;color:#94a3b8;font-style:italic;">📌 Replace each block above with actual photos.</p></div>
+      <div class="m-section"><div class="m-section-label">Team</div><table class="m-team-table"><thead><tr><th>Name</th><th>Role</th><th>Responsibilities</th></tr></thead><tbody>${teamHTML}</tbody></table></div>
+      <div class="m-section"><div class="m-section-label">Role Breakdown</div><table class="m-role-table"><thead><tr><th>Domain</th><th>Activities</th><th>Skills</th></tr></thead><tbody>${roleHTML}</tbody></table></div>
+      <div class="m-section"><div class="m-section-label">Software & Tools</div><div class="m-sw-row">${swHTML}</div></div>
+      ${linkHTML}
+    </div>`;
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
 const rowClasses = ['row-sky','row-green','row-amber','row-rose'];
 
